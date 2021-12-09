@@ -121,6 +121,12 @@
       "src": "linecons"
     },
     {
+      "uid": "ce5e29aa5208417700e7f7012a236c00",
+      "css": "undo",
+      "code": 59411,
+      "src": "iconic"
+    },
+    {
       "uid": "672236d056042355604002ae94e61871",
       "css": "logo",
       "code": 59392,

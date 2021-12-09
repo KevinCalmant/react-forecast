@@ -5,6 +5,7 @@ import { forecasts } from '../misc/meteo-mock';
 import GeolocContext from '../contexts/GeolocContext';
 import { Day, Unit } from '../model/Day';
 import { Forecast } from '../model/Forecast';
+import { Link } from 'react-router-dom';
 
 const AppWeekForecast = () => {
   const navigate = useNavigate();
@@ -83,6 +84,9 @@ const AppWeekForecast = () => {
           <h1 className='week-title'>
             <span className={'icon-location ' + (loading && 'skeleton')}></span>
             {geolocContext.location}
+            <Link className='back-button' to='/'>
+              <span className='icon-undo'></span>
+            </Link>
           </h1>
           <div className='days'>
             {days.map((day) => {
