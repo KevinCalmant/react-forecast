@@ -64,27 +64,33 @@ const AppWeekForecast = () => {
   };
 
   return (
-    <div className='days'>
-      {days.map((day) => {
-        return (
-          <div
-            className={
-              'day ' +
-              (selectedDay == '' || selectedDay === day.date
-                ? 'active'
-                : 'inactive')
-            }
-            key={day.date}
-            onClick={() => handleActive(day.date)}
-          >
-            <span className={`icon-${day.weather} weather`}></span>
-            <span className='temperature'>{`${day.temperature}  ${getUnitSymbol(
-              day.unit
-            )}`}</span>
-            <span className='date'>{day.date}</span>
-          </div>
-        );
-      })}
+    <div className='week-forecast'>
+      <h1>
+        <span className='icon-location'></span>
+        {geolocContext.location}
+      </h1>
+      <div className='days'>
+        {days.map((day) => {
+          return (
+            <div
+              className={
+                'day ' +
+                (selectedDay == '' || selectedDay === day.date
+                  ? 'active'
+                  : 'inactive')
+              }
+              key={day.date}
+              onClick={() => handleActive(day.date)}
+            >
+              <span className={`icon-${day.weather} weather`}></span>
+              <span className='temperature'>{`${
+                day.temperature
+              }  ${getUnitSymbol(day.unit)}`}</span>
+              <span className='date'>{day.date}</span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

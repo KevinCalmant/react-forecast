@@ -39,6 +39,7 @@ const AutoCompleteInput = () => {
         .then(async ({ lat, lng }) => {
           geolocContext.lat = lat.toString();
           geolocContext.lon = lng.toString();
+          geolocContext.location = description;
           navigate('/week');
         })
         .catch(() => {
