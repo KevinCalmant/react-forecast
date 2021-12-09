@@ -12,7 +12,7 @@ const AppWeekForecast = () => {
   const geolocContext = useContext(GeolocContext);
 
   const [days, setDays] = useState<Day[]>([]);
-  const [selectedDay, setSelectedDay] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (geolocContext.lat == '' || geolocContext.lon == '') {
@@ -39,15 +39,19 @@ const AppWeekForecast = () => {
       })
       .catch(() => {
         setDays(forecasts.map((forecast) => mapForecastToDay(forecast)));
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  }, [geolocContext.lat, geolocContext.lon]);
+  }, []);
 
   const getUnitSymbol = (unit: Unit): string => {
     return unit === 'celsius' ? '°C' : '°F';
   };
 
   const handleActive = (date: string): void => {
-    setSelectedDay(date);
+    geolocContext.date = date;
+    navigate('/day');
   };
 
   const mapForecastToDay = (forecast: Forecast): Day => {
@@ -65,32 +69,40 @@ const AppWeekForecast = () => {
 
   return (
     <div className='week-forecast'>
-      <h1>
-        <span className='icon-location'></span>
-        {geolocContext.location}
-      </h1>
-      <div className='days'>
-        {days.map((day) => {
-          return (
-            <div
-              className={
-                'day ' +
-                (selectedDay == '' || selectedDay === day.date
-                  ? 'active'
-                  : 'inactive')
-              }
-              key={day.date}
-              onClick={() => handleActive(day.date)}
-            >
-              <span className={`icon-${day.weather} weather`}></span>
-              <span className='temperature'>{`${
-                day.temperature
-              }  ${getUnitSymbol(day.unit)}`}</span>
-              <span className='date'>{day.date}</span>
-            </div>
-          );
-        })}
-      </div>
+      {loading ? (
+        <>
+          <h1 className='week-title skeleton'></h1>
+          <div className='days'>
+            {[0, 1, 2, 3, 4, 5, 6].map((mock) => {
+              return <div className='day skeleton' key={mock}></div>;
+            })}
+          </div>
+        </>
+      ) : (
+        <>
+          <h1 className='week-title'>
+            <span className={'icon-location ' + (loading && 'skeleton')}></span>
+            {geolocContext.location}
+          </h1>
+          <div className='days'>
+            {days.map((day) => {
+              return (
+                <div
+                  className='day'
+                  key={day.date}
+                  onClick={() => handleActive(day.date)}
+                >
+                  <span className={`icon-${day.weather} weather`}></span>
+                  <span className='temperature'>{`${
+                    day.temperature
+                  }  ${getUnitSymbol(day.unit)}`}</span>
+                  <span className='date'>{day.date}</span>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 };

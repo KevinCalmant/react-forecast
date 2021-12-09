@@ -15,6 +15,12 @@ html {
   flex-direction: column;
 }
 
+.week-title {
+  width: 100%;
+  height: 1em;
+  border-radius: 1em;
+}
+
 .days {
   display: flex;
   flex-direction: row;
@@ -33,13 +39,16 @@ html {
   padding: 2em;
   border: 0.2em solid transparent;
   transition: 0.5s;
+
+  width: 15em;
+  height: 15em;
 }
 
 .day:hover {
   cursor: pointer;
   border: 0.2em solid inherit;
-  box-shadow: 10px 9px 22px -6px rgba(16, 52, 68, 0.75);
-  background-color: rgba(16, 52, 68, 0.2);
+  box-shadow: 10px 9px 22px -6px var(--box-shadow);
+  background-color: var(--box-background);
   transition: 0.5s;
 }
 
@@ -75,15 +84,15 @@ html {
 
 .input-icon-wrap {
   border-radius: 2em;
-  border: 0.1em solid white;
-  box-shadow: rgb(3, 3, 0) 3px 4px 4px;
+  border: 0.1em solid var(--sugestions-border);
+  box-shadow: var(--box-shadow) 3px 4px 4px;
   display: flex;
   flex-direction: row;
-  background-color: rgba(16, 52, 68, 0.2);
+  background-color: var(--box-background);
 
   input {
     width: 100%;
-    text-shadow: rgb(3, 3, 0) 3px 4px 4px;
+    text-shadow: var(--box-shadow) 3px 4px 4px;
     font-size: 1.5em;
     font-weight: bold;
   }
@@ -115,9 +124,9 @@ html {
     font-size: 1.5em;
     gap: 1em;
     border-radius: 1em;
-    border: 0.1em solid white;
-    box-shadow: rgb(3, 3, 0) 3px 4px 4px;
-    background-color: rgba(16, 52, 68, 0.2);
+    border: 0.1em solid var(--sugestions-border);
+    box-shadow: var(--box-shadow) 3px 4px 4px;
+    background-color: var(--box-background);
 
     li {
       border-radius: 1em;
@@ -127,9 +136,9 @@ html {
 
     li:hover {
       transition: 0.5s;
-      color: rgba(16, 52, 68, 0.75);
+      color: var(--location-color);
       text-shadow: none;
-      background-color: rgba(16, 52, 68, 0.2);
+      background-color: var(--box-background);
       border-radius: 1em;
     }
   }
@@ -138,5 +147,70 @@ html {
 .error {
   font-size: 1.5em;
   font-weight: bold;
-  color: darkorange;
+  color: var(--error-message);
+}
+
+.day-forecast {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .day-detail {
+    padding: 0.5em 1em 1em 1em;
+    width: 40em;
+    height: 30em;
+    font-size: 1.5em;
+    gap: 1em;
+    border-radius: 1em;
+    box-shadow: 3px 4px 4px var(--box-shadow);
+    background-color: var(--box-background);
+  }
+}
+
+.day-title {
+  padding: 0.5em;
+  border-radius: 2em;
+}
+
+.day-title:hover {
+  cursor: pointer;
+  padding: 0.5em;
+  border: 0.2em solid inherit;
+  box-shadow: 10px 9px 22px -6px var(--box-shadow);
+  background-color: var(--box-background);
+  transition: 0.5s;
+}
+
+.skeleton {
+  box-shadow: 0 4px 10px 0 var(--skeleton-box-shadow);
+  border-radius: 2em;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -150px;
+  top: 0;
+  height: 100%;
+  width: 150px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #e8e8e8 50%,
+    transparent 100%
+  );
+  animation: load 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes load {
+  from {
+    left: -150px;
+  }
+  to {
+    left: 100%;
+  }
 }

@@ -4,6 +4,7 @@ const GeolocContext = createContext({
   lat: '',
   lon: '',
   location: '',
+  date: '',
 });
 
 export default GeolocContext;
