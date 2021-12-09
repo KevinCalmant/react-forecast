@@ -33,10 +33,10 @@
 
 .day:hover {
   cursor: pointer;
-  border: 0.1em solid var(--border-color);
   box-shadow: 10px 9px 22px -6px var(--box-shadow);
   background-color: var(--box-background);
   transition: 0.3s;
+  color: var(--hover-text-color);
 }
 
 .weather {

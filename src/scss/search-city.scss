@@ -17,7 +17,6 @@
 
 .input-icon-wrap {
   border-radius: 2em;
-  border: 0.1em solid var(--border-color);
   box-shadow: var(--box-shadow) 3px 4px 4px;
   display: flex;
   flex-direction: row;
@@ -57,7 +56,6 @@
     font-size: 1.5em;
     gap: 1em;
     border-radius: 1em;
-    border: 0.1em solid var(--border-color);
     box-shadow: var(--box-shadow) 3px 4px 4px;
     background-color: var(--box-background);
 
@@ -69,8 +67,7 @@
 
     li:hover {
       transition: 0.5s;
-      color: var(--location-color);
-      text-shadow: none;
+      color: var(--hover-text-color);
       background-color: var(--box-background);
       border-radius: 1em;
     }
