@@ -127,6 +127,12 @@
       "src": "iconic"
     },
     {
+      "uid": "07c8bfac1a39b6c62bc83e23a3c4b706",
+      "css": "thermometer",
+      "code": 62151,
+      "src": "fontawesome"
+    },
+    {
       "uid": "672236d056042355604002ae94e61871",
       "css": "logo",
       "code": 59392,

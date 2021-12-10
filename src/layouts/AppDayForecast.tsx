@@ -1,9 +1,11 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import GeolocContext from '../contexts/GeolocContext';
+import useDailyForcast from '../hooks/UseDailyForecast';
 
 const AppDayForecast = () => {
   const geolocContext = useContext(GeolocContext);
+  const day = useDailyForcast(geolocContext.lat, geolocContext.lon);
 
   return (
     <div className='day-forecast'>
@@ -18,7 +20,13 @@ const AppDayForecast = () => {
         {geolocContext.date}
       </h1>
       <div className='day-detail'>
-        <p>Test</p>
+        <h4>
+          <span className='icon-thermometer'></span>Températures
+        </h4>
+        <div className='temperature-detail'>
+          <p>{`Minima : ${day?.minTemp} °C`}</p>
+          <p>{`Maxima : ${day?.maxTemp} °C`}</p>
+        </div>
       </div>
     </div>
   );
