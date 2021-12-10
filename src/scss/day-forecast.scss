@@ -5,6 +5,9 @@
   align-items: center;
 
   .day-detail {
+    display: flex;
+    flex-direction: column;
+
     padding: 0.5em 1em 1em 1em;
     width: 40em;
     height: 30em;

@@ -27,6 +27,11 @@ const AppDayForecast = () => {
           <p>{`Minima : ${day?.minTemp} °C`}</p>
           <p>{`Maxima : ${day?.maxTemp} °C`}</p>
         </div>
+
+        <h4>
+          <span className='icon-moon'></span>Cycle lunaire
+        </h4>
+        <div className='moon-cycle'></div>
       </div>
     </div>
   );
