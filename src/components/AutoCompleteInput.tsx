@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
-} from 'use-places-autocomplete';
-import GeolocContext from '../contexts/GeolocContext';
+} from "use-places-autocomplete";
+import GeolocContext from "../contexts/GeolocContext";
 
 const AutoCompleteInput = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const AutoCompleteInput = () => {
     debounce: 300,
   });
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleInput = (e: any) => {
     setValue(e.target.value);
@@ -40,15 +40,15 @@ const AutoCompleteInput = () => {
           geolocContext.lat = lat.toString();
           geolocContext.lon = lng.toString();
           geolocContext.location = description;
-          navigate('/week');
+          navigate("/week");
         })
         .catch(() => {
-          setError('Une erreur est survenue veuillez réessayer plus tard');
+          setError("Une erreur est survenue veuillez réessayer plus tard");
         });
     };
 
   const renderSuggestions = () =>
-    data.map((suggestion) => {
+    data.map((suggestion: google.maps.places.AutocompletePrediction) => {
       const {
         place_id,
         structured_formatting: { main_text, secondary_text },
@@ -60,6 +60,26 @@ const AutoCompleteInput = () => {
         </li>
       );
     });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      if (position) {
+        geolocContext.lat = position.coords.latitude.toString();
+        geolocContext.lon = position.coords.longitude.toString();
+
+        getGeocode({
+          location: {
+            lat: +geolocContext.lat,
+            lng: +geolocContext.lon,
+          },
+        }).then((results) => {
+          if (results.length) {
+            setValue((geolocContext.location = results[0].formatted_address));
+          }
+        });
+      }
+    });
+  }, []);
 
   return (
     <div className='auto-complete'>
@@ -81,7 +101,7 @@ const AutoCompleteInput = () => {
         </div>
       )}
       <div className='suggestions'>
-        {status === 'OK' && (
+        {status === "OK" && (
           <ul className='suggestion-list'>{renderSuggestions()}</ul>
         )}
       </div>
